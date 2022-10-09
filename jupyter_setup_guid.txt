@@ -20,10 +20,10 @@
 13. sudo kill -9 (pid)
 14. cd /home/vincent
 15. mkdir ssl && cd ssl
-16. sudo openssl req -x509 -nodes -days 365 -newkey rsa:1024 -keyout "cert.key" -out "cert.pem" -batch
+16. sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout "cert.key" -out "cert.pem" -batch
 17. sudo vim /home/vincent/.jupyter/jupyter_notebook_config.py
-18. c.NotebookApp.certifile = u'/home/vincent/ssl/cer.pem'
-    c.NotebookApp.keyfile = u'/home/vincent/ssl/cer.key'
+18. c.NotebookApp.certifile = u'/home/vincent/ssl/cert.pem'
+    c.NotebookApp.keyfile = u'/home/vincent/ssl/cert.key'
 19. sudo jupyter-notebook --allow-root
 20. which jupyter-notebook
 21. sudo vim /etc/systemd/system/jupyter.service
