@@ -1,0 +1,42 @@
+1. sudo apt update && sudo apt upgrade
+2. sudo apt-get install python3-pip
+3. sudo pip3 install notebook
+4. python3 
+  from notebook.auth import passwd
+  passwd()
+  (input password)
+  (copy hash-password)
+5. jupyter notebook --generate-config
+6. sudo vim /home/vincent/.jupyter/jupyter_notebook_config.py
+7. c = get_config()
+   c.NotebookApp.password = u'sha1:....'
+   c.NotebookApp.ip = (public ip)
+   c.NotebookApp.notebook_dir = '/'
+8. sudo jupyter-notebook --allow-root
+9. ctrl+z
+10. bg
+11. disown -h
+12. sudo netstat -nap | grep 8888
+13. sudo kill -9 (pid)
+14. cd /home/vincent
+15. mkdir ssl && cd ssl
+16. sudo openssl req -x509 -nodes -days 365 -newkey rsa:1024 -keyout "cert.key" -out "cert.pem" -batch
+17. sudo vim /home/vincent/.jupyter/jupyter_notebook_config.py
+18. c.NotebookApp.certifile = u'/home/vincent/ssl/cer.pem'
+    c.NotebookApp.keyfile = u'/home/vincent/ssl/cer.key'
+19. sudo jupyter-notebook --allow-root
+20. which jupyter-notebook
+21. sudo vim /etc/systemd/system/jupyter.service
+22. [Unit]
+    Description=Jupyter Notebook Server
+    [Service]
+    Type=simple
+    User=ubuntu
+    ExecStart=/usr/bin/sudo /usr/local/bin/jupyter-notebook --allow-root --config=/home/vincent/.jupyter/jupyter_notebook_config.py
+    [Install]
+    WantedBy=multi-user.target
+22. sudo systemctl daemon-reload
+23. sudo systemctl enable jupyter
+24. sudo systemctl start jupyter
+25. sudo systemctl status jupyter
+26. sudo systemctl restart jupyter
